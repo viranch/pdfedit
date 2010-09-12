@@ -19,7 +19,8 @@ Insalltion:
 	Install Python ( http://www.python.org/ftp/python/2.7/python-2.7.msi )
 	and PyQt ( http://www.riverbankcomputing.co.uk/static/Downloads/PyQt4/PyQt-Py2.7-gpl-4.7.6-1.exe )
 	Get the source from http://bitbucket.org/viranch/pdfedit and just double-click the "pdfedit.pyw" file.
-	You can create shortcut to the file on your desktop.
+	Contact the author in case it doesn't work.
+	Otherwise, you can create shortcut to the file on your desktop for later use. :-)
 
 Report Bugs:
 =====================

@@ -72,6 +72,7 @@ class MainWindow(QMainWindow):
 		super (MainWindow, self).__init__(parent)
 
 		self.items = []
+		icon = lambda name: os.path.dirname(__file__)+'/icons/'+name
 		centralWidget = QWidget(self)
 
 		self.toolbar = self.addToolBar ('Toolbar')
@@ -80,38 +81,34 @@ class MainWindow(QMainWindow):
 
 		self.table = QTreeWidget(centralWidget)
 		headerItem = self.table.headerItem()
-		headerItem.setIcon (0, QIcon('icons/application-pdf.png'))
+		headerItem.setIcon (0, QIcon(icon('application-pdf.png')))
 		headerItem.setText (0, 'Filename')
-		headerItem.setIcon (1, QIcon('icons/flag-green.png'))
+		headerItem.setIcon (1, QIcon(icon('flag-green.png')))
 		headerItem.setText (1, 'From Page')
-		headerItem.setIcon (2, QIcon('icons/flag-red.png'))
+		headerItem.setIcon (2, QIcon(icon('flag-red.png')))
 		headerItem.setText (2, 'To Page')
-		headerItem.setIcon (3, QIcon('icons/edit-copy.png'))
+		headerItem.setIcon (3, QIcon(icon('edit-copy.png')))
 		headerItem.setText (3, 'Pages')
 		self.table.setRootIsDecorated (False)
 		self.setCentralWidget (centralWidget)
 		
-		addAction = self.createAction ('Add', self.add, 'Ctrl+O', 'Add...', 'icons/document-new.png')
-		rmAction = self.createAction ('Remove', self.remove, 'Del', 'Remove', 'icons/document-close.png')
-		clearAction = self.createAction ('Clear', self.clear, 'Shift+Del', 'Clear', 'icons/edit-clear-list.png')
-		topAction = self.createAction ('Top', self.top, 'Ctrl+Shift+Up', 'Move to top', 'icons/go-top.png')
-		upAction = self.createAction ('Up', self.up, 'Ctrl+Up', 'Shift Up', 'icons/go-up.png')
-		downAction = self.createAction ('Down', self.down, 'Ctrl+Down', 'Shift Down', 'icons/go-down.png')
-		bottomAction = self.createAction ('Bottom', self.bottom, 'Ctrl+Shift+Down', 'Move to bottom', 'icons/go-bottom.png')
-		saveAction = self.createAction ('Save', self.save, QKeySequence.Save, 'Save', 'icons/document-save-as.png')
-		aboutAction = self.createAction ('About', self.about, None, 'About', 'icons/help-about.png')
-		quitAction = self.createAction ('Quit', self.close, 'Ctrl+Q', 'Quit', 'icons/application-exit.png')
+		addAction = self.createAction ('Add', self.add, 'Ctrl+O', 'Add...', icon('document-new.png'))
+		rmAction = self.createAction ('Remove', self.remove, 'Del', 'Remove', icon('document-close.png'))
+		clearAction = self.createAction ('Clear', self.clear, 'Shift+Del', 'Clear', icon('edit-clear-list.png'))
+		upAction = self.createAction ('Up', self.up, 'Ctrl+Up', 'Shift Up', icon('go-up.png'))
+		downAction = self.createAction ('Down', self.down, 'Ctrl+Down', 'Shift Down', icon('go-down.png'))
+		saveAction = self.createAction ('Save', self.save, QKeySequence.Save, 'Save', icon('document-save-as.png'))
+		aboutAction = self.createAction ('About', self.about, None, 'About', icon('help-about.png'))
+		quitAction = self.createAction ('Quit', self.close, 'Ctrl+Q', 'Quit', icon('application-exit.png'))
 		
 		self.toolbar.addAction ( addAction )
 		self.toolbar.addAction ( rmAction )
 		self.toolbar.addAction ( clearAction )
 		self.toolbar.addSeparator()
-		self.toolbar.addAction ( topAction )
+		self.toolbar.addAction ( saveAction )
+		self.toolbar.addSeparator()
 		self.toolbar.addAction ( upAction )
 		self.toolbar.addAction ( downAction )
-		self.toolbar.addAction ( bottomAction )
-		self.toolbar.addSeparator()
-		self.toolbar.addAction ( saveAction )
 		self.toolbar.addSeparator()
 		self.toolbar.addAction ( aboutAction )
 		self.toolbar.addAction ( quitAction )
@@ -122,7 +119,7 @@ class MainWindow(QMainWindow):
 
 		self.resize (415, 377)
 		self.setWindowTitle ('PDF Edit')
-		self.setWindowIcon ( QIcon('icons/acroread.png') )
+		self.setWindowIcon ( QIcon(icon('acroread.png')) )
 		
 	def add (self):
 		filenames = QFileDialog (self).getOpenFileNames()
@@ -165,13 +162,9 @@ class MainWindow(QMainWindow):
 		if len(self.items)<2:
 			return None
 		current = self.table.indexOfTopLevelItem ( self.table.currentItem() )
-		if to<2:
-			bound = 0
-		else:
-			bound = len(self.items)-1
-		if current == bound:
+		if current == (len(self.items)-1)*(to>0):
 			return None
-		toPos = [0, current-1, current+1, len(self.items)-1][to]
+		toPos = current+to
 		tmp1 = self.table.takeTopLevelItem (current)
 		tmp2 = self.items.pop (current)
 		
@@ -180,13 +173,9 @@ class MainWindow(QMainWindow):
 		self.updateSpins()
 		self.table.setCurrentItem ( self.table.topLevelItem(toPos) )
 
-	def top (self): self.move (0)
+	def up (self): self.move (-1)
 
-	def up (self): self.move (1)
-
-	def down (self): self.move (2)
-
-	def bottom (self): self.move (3)
+	def down (self): self.move (1)
 	
 	def updateSpins ( self ):
 		for i in range ( len(self.items) ):
