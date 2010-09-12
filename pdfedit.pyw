@@ -16,12 +16,12 @@ __version__ = '0.9'
 class Item (QObject):
 
 	def __init__ (self, filename, parent, index):
-		super ( Item, self).__init__ (None)
+		super (Item, self).__init__(parent)
 		self.filename = filename
 		self.parent = parent
 		self.index = index
 		
-		self.name = self.filename.split(os.sep)[-1]
+		self.name = self.filename.split('/')[-1]
 		self.first = 0
 		f=open(self.filename, 'rb')
 		pdf = pyPdf.PdfFileReader(f)
