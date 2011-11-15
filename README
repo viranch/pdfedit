@@ -3,28 +3,27 @@ Insalltion:
 
 1) On LINUX Platforms:
 
-	Make sure you have python and pyqt packages instlled before proceeding.
+	Make sure you have python and pyqt packages installed before proceeding.
 
-	Get the source code from http://bitbucket.org/viranch/sam or clone the repo:
-	$ hg clone http://bitbucket.org/viranch/pdfedit
-	Note: if the above command doesn't work, you need to install the package mercurial,
-	otherwise get the code from http://bitbucket.org/viranch/pdfedit
+	Download:
+	$ git clone git://github.com/viranch/pdfedit.git
+    or
+    $ wget -q https://github.com/viranch/pdfedit/tarball/master -O - | tar zxv
 
 	PDFEdit is ready to use! Just execute the pdfedit.pyw
-
-	(Sorry, PDFEdit doesn't currently add shortcuts to the Kicker menu)
+	(Sorry, PDFEdit doesn't really install itself system-wide.)
 
 2) On Windows Platform:
 
 	Install Python ( http://www.python.org/ftp/python/2.7/python-2.7.msi )
-	and PyQt ( http://www.riverbankcomputing.co.uk/static/Downloads/PyQt4/PyQt-Py2.7-gpl-4.7.6-1.exe )
-	Get the source from http://bitbucket.org/viranch/pdfedit and just double-click the "pdfedit.pyw" file.
+	and PyQt:
+        32bit: http://www.riverbankcomputing.co.uk/static/Downloads/PyQt4/PyQt-Py2.7-x86-gpl-4.8.6-1.exe
+        64bit: http://www.riverbankcomputing.co.uk/static/Downloads/PyQt4/PyQt-Py2.7-x64-gpl-4.8.6-1.exe
+	Get the source from http://github.com/viranch/pdfedit and just double-click the "pdfedit.pyw" file.
 	Contact the author in case it doesn't work.
-	Otherwise, you can create shortcut to the file on your desktop for later use. :-)
+	You can also create shortcut to the file on your desktop for later use. :-)
 
 Report Bugs:
 =====================
 
 Viranch Mehta <viranch.mehta@gmail.com>
-
-
