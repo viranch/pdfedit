@@ -72,7 +72,7 @@ class MainWindow(QMainWindow):
         super (MainWindow, self).__init__(parent)
 
         self.items = []
-        icon = lambda name: os.path.dirname(__file__)+'/icons/'+name
+        icon = lambda name: os.path.dirname(__file__)+'/../icons/'+name
         centralWidget = QWidget(self)
 
         self.toolbar = self.addToolBar ('Toolbar')
